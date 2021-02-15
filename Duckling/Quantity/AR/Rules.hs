@@ -140,7 +140,6 @@ ruleQuantityOfProduct = Rule
 
 rules :: [Rule]
 rules =
-  [ ruleQuantityOfProduct
-  ]
+  []
   ++ ruleNumeralQuantities
   ++ ruleAQuantity

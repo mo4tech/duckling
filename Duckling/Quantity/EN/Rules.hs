@@ -242,8 +242,7 @@ ruleQuantityLatent = Rule
 
 rules :: [Rule]
 rules =
-  [ ruleQuantityOfProduct
-  , ruleIntervalMin
+  [ ruleIntervalMin
   , ruleIntervalMax
   , ruleIntervalBetweenNumeral
   , ruleIntervalBetween

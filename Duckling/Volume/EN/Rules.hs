@@ -123,6 +123,26 @@ ruleIntervalBetween = Rule
       _ -> Nothing
   }
 
+ruleIntervalBetweenNumeralModified :: Rule
+ruleIntervalBetweenNumeralModified = Rule
+  { name = "<numeral> to <volume>"
+  , pattern =
+    [ Predicate isPositive
+    , regex "to"
+    , Predicate isSimpleVolume
+    ]
+  , prod = \case
+      (
+       Token Numeral TNumeral.NumeralData{TNumeral.value = from}:
+       _:
+       Token Volume TVolume.VolumeData{TVolume.value = Just to
+                                  , TVolume.unit = Just u}:
+       _) | from < to ->
+        Just . Token Volume . withInterval (from, to) $ unitOnly u
+      _ -> Nothing
+  }
+
+
 ruleIntervalMax :: Rule
 ruleIntervalMax = Rule
   { name = "at most <volume>"
@@ -158,6 +178,7 @@ ruleIntervalMin = Rule
 rules :: [Rule]
 rules = [ rulePrecision
         , ruleIntervalBetweenNumeral
+        , ruleIntervalBetweenNumeralModified
         , ruleIntervalBetween
         , ruleIntervalMax
         , ruleIntervalMin

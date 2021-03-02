@@ -95,6 +95,7 @@ allExamples = concat
               [ "around 2 -7 g"
               , "~2-7 grams"
               , "from 2 to 7 g"
+              , "2 to 7 g"
               , "between 2.0 g and about 7.0 g"
               , "between 0.002 kg and about 0.007 kg"
               , "2 - ~7 grams"

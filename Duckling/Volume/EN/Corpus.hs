@@ -78,12 +78,14 @@ allExamples = concat
              [ "between 100 and 1000 liters"
              , "100-1000 liters"
              , "from 100 to 1000 l"
+             , "100  to 1000 l"
              , "100 - 1000 l"
              ]
   , examples (between Litre (2,7))
              [ "around 2 -7 l"
              , "~2-7 liters"
              , "from 2 to 7 l"
+             , "2 to 7 l"
              , "between 2.0 l and about 7.0 l"
              , "between 2l and about 7l"
              , "2 - ~7 litres"

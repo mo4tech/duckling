@@ -132,6 +132,26 @@ ruleIntervalBetweenNumeral = Rule
         _ -> Nothing
     }
 
+ruleIntervalBetweenNumeralModified :: Rule
+ruleIntervalBetweenNumeralModified = Rule
+    { name = "<numeral> to <quantity>"
+    , pattern =
+      [ Predicate isPositive
+      , regex "to"
+      , Predicate isSimpleQuantity
+      ]
+    , prod = \case
+        (_:
+         Token Numeral NumeralData{TNumeral.value = from}:
+         _:
+         Token Quantity QuantityData{TQuantity.value = Just to
+                                    , TQuantity.unit = Just u
+                                    , TQuantity.aproduct = Nothing}:
+         _) | from < to ->
+          Just . Token Quantity . withInterval (from, to) $ unitOnly u
+        _ -> Nothing
+    }
+
 ruleIntervalBetween :: Rule
 ruleIntervalBetween = Rule
     { name = "between|from <quantity> to|and <quantity>"
@@ -245,6 +265,7 @@ rules =
   [ ruleIntervalMin
   , ruleIntervalMax
   , ruleIntervalBetweenNumeral
+  , ruleIntervalBetweenNumeralModified
   , ruleIntervalBetween
   , ruleIntervalNumeralDash
   , ruleIntervalDash
